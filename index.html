@@ -3,12 +3,171 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Ranking de Peliculas</title>
-	<script type="text/javascript" src="covers.js"></script>
 	<link rel="stylesheet" href="https://bootswatch.com/4/cyborg/bootstrap.css">
 	<link rel="stylesheet" href="estilos.css">
 </head>
 <body>
 	<h1>Ranking de Peliculas</h1>
+	<button onclick="construir()">Generar Ranking</button>
+	<div id="peliculas"></div>
+
+	<script type="text/javascript">
+		var peliculas = [{
+			Numero: "1",
+			Titulo: "Mision de rescate",
+			Duracion: "(99M)",
+			Director: "Sam Hargrave",
+			Anio: "2020",
+			Imagen: '001.png'
+		},
+		{
+			Numero: "2",
+			Titulo: "A ciegas",
+			Duracion: "(89M)",
+			Director: "Sam Hargrave",
+			Anio: "2020",
+			Imagen: '002.png'
+		},
+		{
+			Numero: "3",
+			Titulo: "Spenser Confidential",
+			Duracion: "(85M)",
+			Director: "Peter Berg",
+			Anio: "2020",
+			Imagen: '003.png'
+		},
+		{
+			Numero: "4",
+			Titulo: "Escuadrón 6",
+			Duracion: "(83M)",
+			Director: "Michael Bay",
+			Anio: "2019",
+			Imagen: '004.png'
+		},
+		{
+			Numero: "5",
+			Titulo: "Misterio a bordo",
+			Duracion: "(73M)",
+			Director: "Kyle Newacheck",
+			Anio: "2019",
+			Imagen: '005.png'
+		},
+		{
+			Numero: "6",
+			Titulo: "El irlandés",
+			Duracion: "(64M)",
+			Director: "Martin Scorsese",
+			Anio: "2019",
+			Imagen: '006.png'
+		},
+		{
+			Numero: "7",
+			Titulo: "Triple frontera",
+			Duracion: "(63M)",
+			Director: "J,C,Chandor",
+			Anio: "2019",
+			Imagen: '007.png'
+		},
+		{
+			Numero: "8",
+			Titulo: "La otra Missy",
+			Duracion: "(59M)",
+			Director: "Happy Madison",
+			Anio: "2020",
+			Imagen: '008.png'
+		},
+		{
+			Numero: "9",
+			Titulo: "El hoyo",
+			Duracion: "(56M)",
+			Director: "Galder Gaztelu-Urrutia",
+			Anio: "2019",
+			Imagen: '009.png'
+		},
+		{
+			Numero: "10",
+			Titulo: "La cita perfecta",
+			Duracion: "(48M)",
+			Director: "Chris Nelson",
+			Anio: "2019",
+			Imagen: '010.png'
+		}]
+
+		var nodoPelicula = document.getElementById("peliculas");
+
+		var numero=0;
+
+		function construir(){
+			for (let movie of peliculas) {
+
+				let nodoBtn = document.createElement('button');
+				nodoBtn.classList.add('btn', 'btn-primary');
+				nodoBtn.textContent = '+ Punto ';
+				nodoBtn.setAttribute("id", "btnId"+movie['Numero'] );
+				nodoBtn.style.background = 'red';
+
+				let nodoRow = document.createElement('div');
+				nodoRow.classList.add('row');
+
+				let nodoPeliculaTittle = document.createElement('h3');
+				nodoPeliculaTittle.textContent =movie['Numero'] +'.- ' +movie['Titulo'] +' '+ movie['Duracion'];
+
+				let nodoPeliculaDir = document.createElement('p');
+				nodoPeliculaDir.classList.add('cart-tittle');
+				nodoPeliculaDir.textContent = movie['Director'];
+
+				let nodoRanking = document.createElement('h5');
+				nodoRanking.textContent = 'Ranking '+(11-movie['Numero']);
+				nodoRanking.setAttribute("id", "rankingId"+movie['Numero']);
+
+				let nodoPeliculaImg = document.createElement('img');
+				nodoPeliculaImg.classList.add('img-fluid');
+				nodoPeliculaImg.setAttribute('src', ''+movie['Imagen']);
+
+				let nodoTittle = document.createElement('div');
+				nodoTittle.classList.add('col-sm-6');
+
+				let nodoDescripcion = document.createElement('div');
+				nodoDescripcion.classList.add('col-sm-6');
+
+				nodoTittle.appendChild(nodoPeliculaTittle);
+				nodoTittle.appendChild(nodoPeliculaDir);
+				nodoDescripcion.appendChild(nodoRanking);
+
+				nodoRow.appendChild(nodoTittle);
+				nodoRow.appendChild(nodoDescripcion);
+
+				let nodoRowImg = document.createElement('div');
+				nodoRowImg.classList.add('row');
+
+				let divImagen = document.createElement('div');
+				divImagen.classList.add('col-sm-6');
+
+				let divBoton = document.createElement('div');
+				divBoton.classList.add('col-sm-6');
+
+				divImagen.appendChild(nodoPeliculaImg);
+				divBoton.appendChild(nodoBtn);
+
+				nodoRowImg.appendChild(divImagen);
+				nodoRowImg.appendChild(divBoton);
+
+				nodoPelicula.appendChild(nodoRow);
+				nodoPelicula.appendChild(nodoRowImg);
+
+				nodoBtn.addEventListener("click", (function(tId, bId){
+					return function(){
+						var str=document.getElementById(tId).innerHTML;
+						numero=parseInt(str.substring(8,str.length))+1;
+						document.getElementById(tId).innerHTML=str.substring(0,8)+numero;
+				}
+				
+			}
+			)("rankingId"+movie['Numero'], "btnId"+movie['Numero']),false);
+			}
+
+		}
+	</script>
 
 </body>
 </html>
